@@ -9,8 +9,8 @@ export default function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/signin" component={Login} />
-          <Route exact path="/user/dash" component={TopArtists} />
-          <Route path="/user/:access_token/:refresh_token" component={TopArtists} />
+          <Route exact path="/user/dash/:access_token/:refresh_token" component={TopArtists} />
+          {/* <Route path="/user/:access_token/:refresh_token" component={TopArtists} /> */}
         </Switch>
       </BrowserRouter>
     </div>

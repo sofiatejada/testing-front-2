@@ -1,16 +1,15 @@
 import React from 'react';
 import useUsers from '../../hooks/useUsers';
 import PropTypes from 'prop-types';
-import { fetchTopArtists } from '../../services/spotifyAPI';
+import useArtists from '../../hooks/useArtists';
 
-export default function TopArtists() {
+export default function TopArtists({ match }) {
   const { userObject, loading } = useUsers();
-  const [artists, setArtists] = useState(null);
+  const { artists } = useArtists(match.params.access_token);
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
-
-  userObject ? setArtists(fetchTopArtists(match.params.access_token)) : console.log('you suck');
 
   return (
     <div>
@@ -19,15 +18,15 @@ export default function TopArtists() {
       <a href={userObject.profileURL}>Spotify profile</a>
 
       <ul>
-        {artists.map((artist) => (
+        {userObject ? artists.map((artist) => (
           <li key={artist.id}>
             <a href={artist.url}>
               <div>{artist.name}</div>
             </a>
-            <img src={artist.image} />
+            <img src={artist.images[1].url} />
             <p>{artist.genres}</p>
           </li>
-        ))};
+        )) : 'you suck'};
       </ul>
     </div>
   );

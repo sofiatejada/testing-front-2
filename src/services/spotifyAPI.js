@@ -8,7 +8,10 @@ export const fetchTopArtists = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log('09090909090909090909', res);
+
+  const thing = await res.json();
+  console.log('09090909090909090909', thing.items);
+  return thing.items;
 }
 
 export const tokenRefresh = async (refresh_token) => {
